@@ -1,0 +1,35 @@
+<odoo>
+    <data>
+
+
+        <record id="view_department_form_inherit_4_new_ids" model="ir.ui.view">
+            <field name="name">hr.department.form</field>
+            <field name="model">hr.department</field>
+
+            <field name="inherit_id" ref="hr.view_department_form"/>
+
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='parent_id']" position="before">
+
+                    <field name="percentage"/>
+                </xpath>
+            </field>
+        </record>
+
+          <record id="view_job_form_inherit_4_new_ids" model="ir.ui.view">
+            <field name="name">hr.job.form</field>
+            <field name="model">hr.job</field>
+
+            <field name="inherit_id" ref="hr.view_hr_job_form"/>
+
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='department_id']" position="before">
+
+                    <field name="percentage"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

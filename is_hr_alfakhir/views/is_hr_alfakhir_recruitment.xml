@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--Wizard Loan-->
+	<record id="view_wizard_recruitment" model="ir.ui.view">
+      <field name="name">wizard.recruitment</field>
+      <field name="model">wizard.recruitment</field>
+      <field name="arch" type="xml">
+        <form string="Recruitment">
+			<group>
+                <field name="comment"/>
+                <field name="job_id" invisible="1"/>
+             </group>
+          <footer>
+            <button name = "refuse_recruitment"  string="Refuse"  type="object" class="oe_highlight"/> or
+            <button string="Cancel" class="oe_link" special="cancel"/>
+          </footer>
+        </form>
+      </field>
+    </record>
+    <record id="action_wizard_recruitment" model="ir.actions.act_window">
+      <field name="name">Recruitment</field>
+      <field name="res_model">wizard.recruitment</field>
+      <field name="view_mode">form</field>
+      <field name="target">new</field>
+      <field name="view_id" ref="view_wizard_recruitment"/>
+	  <field name="context">{'default_job_id': active_id}</field>
+    </record>
+<!--       <record id="hr_job_set_recruitment_button" model="ir.ui.view">-->
+<!--        <field name="name">hr.job.form.mtwa</field>-->
+<!--        <field name="model">hr.job</field>-->
+<!--        <field name="inherit_id" ref="hr.view_hr_job_form"/>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <xpath expr="//button[@name='set_recruit']" position="before">-->
+<!--                <button string="Request To Open Job" name="department_job_position" states="recruit" type="object" groups="hr.group_hr_manager"/>-->
+<!--                <button string="HR Job Confirmation" name="hr_confirmation" groups="hr.group_hr_manager" states="request" type="object"  class="oe_inline" />-->
+<!--                <button string="Rest To Draft" name="reset_draft" groups="hr.group_hr_manager,is_hr_alfakhir.group_hr_general_manager" states="refuse" type="object"  class="oe_inline" />-->
+<!--                <button string="Reset To Draft" name="loan_reset" groups="base.group_hr_manager" states="refuse" type="object" class="oe_highlight"/>-->
+<!--            </xpath>-->
+<!--            <xpath expr="//field[@name='state']" position="replace">-->
+<!--                <field name="state" widget="statusbar" statusbar_visible="request,confirm,recruit,open"/>-->
+<!--            </xpath>-->
+<!--            <xpath expr="//button[@name='set_recruit']" position="replace">-->
+<!--                <button name="set_recruit" string="Launch Recruitment" states="confirm" type="object" class="oe_highlight" groups="is_hr_alfakhir.group_hr_general_manager"/>-->
+<!--            </xpath>-->
+<!--            <xpath expr="//button[@name='set_open']" position="replace">-->
+<!--                <button name="%(action_wizard_recruitment)d" type="action" string="Stop Recruitment" states="request,confirm" groups="hr.group_hr_manager,is_hr_alfakhir.group_hr_general_manager"/>-->
+<!--            </xpath>-->
+<!--        </field>-->
+<!--        </record>-->
+    </data>
+</odoo>

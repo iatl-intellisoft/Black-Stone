@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<odoo>
+    <!--    trip seq-->
+    <record id="seq_seles_incentive" model="ir.sequence">
+        <field name="name">Sales Incentive</field>
+        <field name="code">sales.incentive</field>
+        <field name="prefix">Incentive/%(month)s/</field>
+        <field name="padding">5</field>
+    </record>
+</odoo>

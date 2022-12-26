@@ -1,0 +1,25 @@
+<odoo>
+    <data>
+
+
+        <record id="view_account_move_form_inherit_4_new_ids" model="ir.ui.view">
+            <field name="name">account.move.form</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='payment_reference']" position="after">
+                    <field name="warehouse_id"/>
+                </xpath>
+            </field>
+        </record>
+
+         <template id="report_inherited_invoice_with_payments" inherit_id="account.report_invoice_document">
+            <xpath expr="//div[@id='informations']" position="inside">
+                <div class="col-auto col-3 mw-100 mb-2" t-if="o.warehouse_id" name="Warehouse">
+                    <strong>Warehouse:</strong>
+                    <p class="m-0" t-field="o.warehouse_id.name"/>
+                </div>
+            </xpath>
+         </template>
+    </data>
+</odoo>

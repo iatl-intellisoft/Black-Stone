@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record id="tree_hr_panalty_view" model="ir.ui.view">
+		<field name="name">hr.panalties.tree</field>
+		<field name="model">hr.panalties</field>
+		<field name="arch" type="xml">
+			<tree string="Panalties">
+				<field name="date"/>
+				<field name="name"/>
+				<field name="employee_id"/>
+				<field name="panalty_type" />
+				<field name="amount" sum="amount"/>
+				<field name="state"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="form_hr_panalties_view" model="ir.ui.view">
+		<field name="name">hr.panalties.form</field>
+		<field name="model">hr.panalties</field>
+		<field name="arch" type="xml">
+			<form string="Panalties">
+				<header>
+					<button string="Submit" name="act_submit" states="draft" type="object"  class="oe_highlight" />
+					<field name="state" widget="statusbar" statusbar_visible="draft,submit"/>
+				</header>
+				<sheet>
+					<div class="oe_title">
+                        <h2>
+                            <field name="name" placeholder="Panalty Name" attrs="{'readonly':[('state','!=','draft')]}" required="1"/>
+                        </h2>
+                    </div>
+                    <group >
+						<group>
+							<field name="employee_id" attrs="{'readonly':[('state','!=','draft')]}"/>
+							<field name="emp_salary" readonly="1" />
+							<field name="amount" readonly="1" />
+						</group>
+						<group>
+							<field name="date"/>
+							<field name="panalty_type" attrs="{'readonly':[('state','!=','draft')]}"/>
+						</group>
+					</group>
+				</sheet>
+			</form>
+		</field>
+	</record>
+
+	<record id="action_hr_panalties_request" model="ir.actions.act_window">
+		<field name="name">Panalties Requests</field>
+		<field name="res_model">hr.panalties</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+	<menuitem name="Panalties" parent="hr.menu_hr_root" id="menu_hr_panalty" sequence="21" action="action_hr_panalties_request"/>
+</odoo>

@@ -1,0 +1,240 @@
+<odoo>
+    <data>
+<!--        sales incentive-->
+        <record id="sales_incentive_tree" model="ir.ui.view">
+            <field name="name">sales.incentive.tree</field>
+            <field name="model">sales.incentive</field>
+            <field name="arch" type="xml">
+                <tree string="">
+                    <field name="name"/>
+                    <field name="request_date"/>
+                    <field name="tot_incentive"/>
+                    <field name="incentive_type"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="sales_incentive_form" model="ir.ui.view">
+            <field name="name">sales.incentive.form</field>
+            <field name="model">sales.incentive</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <header>
+                        <button string="submit" name="button_approve" states="draft"
+                                type="object" class="oe_highlight"/>
+                        <button string="Approve" name="button_done" states="approve"
+                                type="object" class="oe_highlight"/>
+                        <button string="Reset To Draft" name="button_draft"
+                                states="done,closed" type="object"
+                                class="oe_inline"/>
+                        <button string="Refuse" name="button_refuse"
+                                states="approve" type="object"
+                                class="oe_inline"/>
+
+                        <button string="Create Incentive" name="get_incentive"
+                                type="object"
+                                class="oe_highlight"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,approve,done,refuse"/>
+                    </header>
+                    <sheet>
+                        <group col="4" colspan="4">
+
+                            <field name="name"/>
+                            <field name="ref"/>
+                            <field name="request_date"/>
+                            <field name="incentive_type"/>
+                            <field name="type_amount"/>
+                             <field name="date_from"/>
+                             <field name="date_to"/>
+                             <field name="tot_incentive"/>
+                         </group>
+                            <field name="incentive_line_ids">
+                                <tree editable="Bottom">
+                                    <field name="partner_id"/>
+                                    <field name="employee_id"/>
+                                    <field name="product_id"/>
+                                    <field name="product_id"/>
+                                    <field name="sold_quantity" sum="sold_quantity"/>
+                                    <field name="tot_invoice_amount" sum="tot_invoice_amount"/>
+                                    <field name="type_amount"/>
+                                    <field name="tot_incentive_amount" sum="tot_incentive_amount"/>
+                                </tree>
+                            </field>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        <record id="sales_incentive_action" model="ir.actions.act_window">
+            <field name="name">Sales Incentive</field>
+            <field name="res_model">sales.incentive</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- This Menu Item Must have a parent -->
+        <menuitem id="sales_incentive_root" action="sales_incentive_action"
+                   sequence="10"
+                  parent="sale.sale_menu_root"/>
+
+<!--        incentive type configuration-->
+        <record id="incentive_config_tree" model="ir.ui.view">
+            <field name="name">incentive.config.tree</field>
+            <field name="model">incentive.config</field>
+            <field name="arch" type="xml">
+                <tree string="">
+                    <field name="name"/>
+                    <field name="type"/>
+                    <field name="amount"/>
+                    <field name="expence_account"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="incentive_config_form" model="ir.ui.view">
+            <field name="name">incentive.config.form</field>
+            <field name="model">incentive.config</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <group col="4">
+                           <field name="name"/>
+                            <field name="type"/>
+                            <field name="amount"/>
+                            <field name="expence_account"/>
+                            <field name="note"/>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        <record id="incentive_config_action" model="ir.actions.act_window">
+            <field name="name">Incentive Type</field>
+            <field name="res_model">incentive.config</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+<!--        related="warehouse_id.stock_number"-->
+
+        <!-- This Menu Item Must have a parent -->
+        <menuitem id="incentive_config_aroot" action="incentive_config_action"
+                   sequence="10"
+                  parent="sale.sale_menu_root"/>
+
+          <record id="view_sale_order_new_ids" model="ir.ui.view">
+            <field name="name">sale.order.form</field>
+            <field name="model">sale.order</field>
+
+            <field name="inherit_id" ref="sale_stock.view_order_form_inherit_sale_stock"/>
+
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='warehouse_id']" position="after">
+
+                    <field name="stock_number"/>
+                </xpath>
+            </field>
+        </record>
+
+
+<!--        Sales incentive department-->
+
+        <record id="total_sales_incentive_tree" model="ir.ui.view">
+            <field name="name">total.sales.incentive.tree</field>
+            <field name="model">total.sales.incentive</field>
+            <field name="arch" type="xml">
+                <tree string="">
+                    <field name="name"/>
+                    <field name="request_date"/>
+                    <field name="tot_sales"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="total_sales_incentive_form" model="ir.ui.view">
+            <field name="name">total.sales.incentive.form</field>
+            <field name="model">total.sales.incentive</field>
+            <field name="arch" type="xml">
+                <form string="">
+<!--                    <header>-->
+<!--                        <button string="submit" name="button_approve" states="draft"-->
+<!--                                type="object" class="oe_highlight"/>-->
+<!--                        <button string="Approve" name="button_done" states="approve"-->
+<!--                                type="object" class="oe_highlight"/>-->
+<!--                        <button string="Reset To Draft" name="button_draft"-->
+<!--                                states="done,closed" type="object"-->
+<!--                                class="oe_inline"/>-->
+<!--                        <button string="Refuse" name="button_refuse"-->
+<!--                                states="approve" type="object"-->
+<!--                                class="oe_inline"/>-->
+
+                        <button string="Create department" name="get_department_incentive"
+                                type="object"
+                                class="oe_highlight" attrs="{'invisible':[('check_dep','=',True)]}"/>
+                    <button string="Create job" name="get_job_incentive"
+                                type="object"
+                                class="oe_highlight" attrs="{'invisible':[('check_dep','=',False)]}"/>
+<!--                        <field name="state" widget="statusbar" statusbar_visible="draft,approve,done,refuse"/>-->
+<!--                    </header>-->
+                    <sheet>
+                        <group col="4" colspan="4">
+
+                            <field name="name"/>
+                            <field name="ref"/>
+                            <field name="request_date"/>
+                            <field name="amount"/>
+                             <field name="date_from"/>
+                             <field name="date_to"/>
+                             <field name="tot_sales"/>
+                             <field name="tot_incentive"/>
+                             <field name="check_dep" invisible="1"/>
+                             <field name="tot_incentive_partner"/>
+                         </group>
+                            <field name="department_incen_ids">
+                                <tree editable="Bottom">
+                                    <field name="department_id"/>
+                                    <field name="percentage"/>
+                                    <field name="amount" sum="amount"/>
+                                </tree>
+                            </field>
+                        <field name="job_incen_ids">
+                                <tree editable="Bottom">
+                                    <field name="job_id"/>
+                                    <field name="department_id"/>
+                                    <field name="percentage"/>
+                                    <field name="amount" sum="amount"/>
+                                </tree>
+                            </field>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        <record id="total_sales_incentive_action" model="ir.actions.act_window">
+            <field name="name">Total Sales Incentive</field>
+            <field name="res_model">total.sales.incentive</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- This Menu Item Must have a parent -->
+        <menuitem id="total_sales_incentive_root" action="total_sales_incentive_action"
+                   sequence="11"
+                  parent="sale.sale_menu_root"/>
+
+
+    </data>
+</odoo>
