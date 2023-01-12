@@ -122,7 +122,7 @@
                                     <field name="finance_approval_line_ids"
                                            attrs="{'readonly':[('state','in',['done','validate'])], 'required':[('custody','=', False)]}"
                                            nolabel="1"
-                                           context="{'default_name': reason, 'default_amount': request_amount, 'default_analytic_account_id': analytic_account, 'default_exp_account': property_account_payable_id}">
+                                          context="{'default_name': reason, 'default_amount': request_amount, 'default_analytic_account_id': analytic_account, 'default_exp_account': property_account_payable_id}" groups="account.group_account_user,account.group_account_manager,is_accounting_approval_15.general_manager_access_group">
                                         <tree editable="bottom">
                                             <field name="name"/>
                                             <field name="amount" sum="Total"/>
