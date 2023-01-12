@@ -134,7 +134,7 @@
                                     </field>
                                 </group>
                                 <group colspan="4" col="4"
-                                       attrs="{'invisible':[('payment_method_code','!=','check_printing')]}">
+                                       attrs="{'invisible':[('payment_method_code','!=','check_printing')]}" groups="account.group_account_user">
                                     <field name="finance_approval_check_line_ids" nolabel="1"
                                            context="{'default_journal_id': journal_id,'default_analytic_account_id': analytic_account,'default_amount': request_amount}"
                                            attrs="{'readonly':[('state','=','done')]}">
