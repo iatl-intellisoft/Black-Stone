@@ -71,7 +71,7 @@ class SalesIncentive(models.Model):
 
     def get_incentive(self):
         for rec in self:
-            #rec.incentive_line_ids.unlink()
+            rec.incentive_line_ids.unlink()
             sum = 0.0
             sold_qt = 0.0
             incentive_line = self.env['sales.incentive.line']
@@ -80,6 +80,7 @@ class SalesIncentive(models.Model):
                 sales_ids = self.env['sale.order'].search([('date_order','>=',rec.date_from),('date_order','<=',rec.date_to)
                                                            ,('partner_id','=',partner.id),('state','=','sale')])
                 if sales_ids :
+                    print('ddddddddddddddddddddddddddddddddddd')
                     for sales in sales_ids:
                         sales_line_ids = self.env['sale.order.line'].search(
                             [('order_id', '=', sales.id), ('product_template_id.incentive', '=', True),('get_incentive','=',False)])
@@ -96,6 +97,7 @@ class SalesIncentive(models.Model):
 
 
                             })
+                            print('wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww')
                             order_line.get_incentive = True
             rec.check = True
 
