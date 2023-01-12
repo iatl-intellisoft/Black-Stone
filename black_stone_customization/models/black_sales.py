@@ -90,7 +90,7 @@ class SalesIncentive(models.Model):
                             record = incentive_line.create({
                                 'partner_id': sales.partner_id.id,
                                 'product_id':order_line.product_template_id.id,
-                                'sales_id':order_line.id,
+                                #'sales_id':order_line.id,
                                 'sold_quantity': sold_qt,
                                 'tot_invoice_amount': sum,
                                 'incentive_line_id':self.id,
