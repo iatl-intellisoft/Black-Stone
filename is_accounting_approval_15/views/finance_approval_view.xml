@@ -70,7 +70,8 @@
                             <field name="request_amount_words"
                                    attrs="{'readonly':[('state','in',['validate','reject','cleared'])]}"/>
 <!--                            <field name="un_cleared_amount" attrs="{'invisible':[('on_credit','=',False)]}"/>-->
-                            <field name="tot_cleared_amount" attrs="{'invisible':[('on_credit','=',False)]}"/>
+                            <field name="tot_cleared_amount" attrs="{'invisible':[('on_credit','=',False)]}" groups="account.group_account_user,account.group_account_manager,is_accounting_approval_15.general_manager_access_group"/>
+
 <!--                            <field name="is_cleared" invisible="1"/>-->
                             <field name="custody" invisible="1"/>
                         </group>
@@ -104,7 +105,8 @@
 
                                     <field name="partner_id"
                                            attrs="{'readonly':[('state','in',['validate'])],'invisible':[('on_credit','!=',False)]}"
-                                           groups="is_accounting_approval_15.user_access_group"/>
+                                                                                      groups="account.group_account_user,account.group_account_manager,is_accounting_approval_15.general_manager_access_group"/>
+
 
                                     <field name="analytic_account" groups="account.group_account_manager" invisible="1"/>
 <!--                                           attrs="{'invisible':[('custody','=', False)],'readonly':[('state','in',['validate'])]}"/>-->
