@@ -7,7 +7,7 @@
 from odoo import models, fields, api, _
 from odoo.tools.misc import format_date
 from odoo.tools import image_process
-from odoo.exceptions import Warning, ValidationError, _logger, UserError
+from odoo.exceptions import Warning, ValidationError, UserError
 
 
 #################################################################################################
