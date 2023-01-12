@@ -71,7 +71,7 @@ class SalesIncentive(models.Model):
 
     def get_incentive(self):
         for rec in self:
-            rec.incentive_line_ids.unlink()
+            #rec.incentive_line_ids.unlink()
             sum = 0.0
             sold_qt = 0.0
             incentive_line = self.env['sales.incentive.line']
