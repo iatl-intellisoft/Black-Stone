@@ -36,6 +36,7 @@ class SalesIncentive(models.Model):
                       \nThe status is \'Refused\', when request is refused by manager.\
                       \nThe status is \'Done\', when request is approved by manager.',
         default='draft')
+    check = fields.Boolean('Check')
 
     @api.depends('incentive_line_ids')
     def get_tot_incentive(self):
@@ -70,6 +71,7 @@ class SalesIncentive(models.Model):
 
     def get_incentive(self):
         for rec in self:
+            rec.incentive_line_ids.unlink()
             sum = 0.0
             sold_qt = 0.0
             incentive_line = self.env['sales.incentive.line']
@@ -80,19 +82,22 @@ class SalesIncentive(models.Model):
                 if sales_ids :
                     for sales in sales_ids:
                         sales_line_ids = self.env['sale.order.line'].search(
-                            [('order_id', '=', sales.id), ('product_template_id.incentive', '=', True)])
+                            [('order_id', '=', sales.id), ('product_template_id.incentive', '=', True),('get_incentive','=',False)])
                         for order_line in sales_line_ids:
                             sum += order_line.price_unit
                             sold_qt += order_line.product_uom_qty
                             record = incentive_line.create({
                                 'partner_id': sales.partner_id.id,
                                 'product_id':order_line.product_template_id.id,
+                                'sales_id':order_line.id,
                                 'sold_quantity': sold_qt,
                                 'tot_invoice_amount': sum,
                                 'incentive_line_id':self.id,
 
+
                             })
-                            print('eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',record)
+                            order_line.get_incentive = True
+            rec.check = True
 
 
 
@@ -108,6 +113,7 @@ class SalesIncentiveLine(models.Model):
     partner_id = fields.Many2one('res.partner', string="Customer")
     product_id = fields.Many2one('product.template', string="product")
     sold_quantity = fields.Float('Sold Quantity')
+    sales_id = fields.Many2one('sale.order',string="Sales Order")
     tot_invoice_amount = fields.Float('Total Invoice Amount')
     type_amount = fields.Float(related="incentive_line_id.type_amount", string="Amount")
     tot_incentive_amount = fields.Float('Total Incentive Amount')
@@ -134,6 +140,7 @@ class SaleOrderLine(models.Model):
 
     incentive = fields.Boolean(related="product_template_id.incentive",readonly=True,string="Incentive")
     available_qty = fields.Float(related="product_id.qty_available", string="Available QTY", readonly=True)
+    get_incentive = fields.Boolean('Incentive')
 
 
 
