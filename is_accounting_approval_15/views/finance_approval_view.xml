@@ -41,7 +41,7 @@
                             <button name="action_view_checks" type="object"
                                     class="oe_stat_button" icon="fa-bars"
                                     string="Check(s)"
-                                    attrs="{'invisible': ['|',('state','!=', 'validate'),('payment_method_code','!=', 'check_printing')]}"
+                                    attrs="{'invisible': [('state','!=', 'validate')]}"
                             >
                             </button>
                         </div>
