@@ -34,7 +34,8 @@
 
                         <button string="Create Incentive" name="get_incentive"
                                 type="object"
-                                class="oe_highlight"/>
+                                class="oe_highlight" attrs="{'invisible':[('check','=',True)]}"/>
+
                         <field name="state" widget="statusbar" statusbar_visible="draft,approve,done,refuse"/>
                     </header>
                     <sheet>
@@ -48,19 +49,32 @@
                              <field name="date_from"/>
                              <field name="date_to"/>
                              <field name="tot_incentive"/>
+                             <field name="check" invisible="1"/>
                          </group>
+                        <notebook>
+                            <page string="Incentive">
                             <field name="incentive_line_ids">
                                 <tree editable="Bottom">
-                                    <field name="partner_id"/>
-                                    <field name="employee_id"/>
-                                    <field name="product_id"/>
+                                    <field name="user_id"/>
                                     <field name="product_id"/>
                                     <field name="sold_quantity" sum="sold_quantity"/>
                                     <field name="tot_invoice_amount" sum="tot_invoice_amount"/>
                                     <field name="type_amount"/>
-                                    <field name="tot_incentive_amount" sum="tot_incentive_amount"/>
+<!--                                    <field name="tot_incentive_amount" sum="tot_incentive_amount"/>-->
                                 </tree>
                             </field>
+                            </page>
+                            <page string="Sales person Incentive">
+                                <field name="incentive_person_ids">
+                                    <tree editable="Bottom">
+                                        <field name="user_id"/>
+                                        <field name="tot_incentive_amount"/>
+                                    </tree>
+                                </field>
+
+                            </page>
+                        </notebook>
+                        <button type="object" name="compute_incentive_person" string="Compute" colspan="2" />
                     </sheet>
                     <div class="oe_chatter">
                         <field name="message_follower_ids"/>
@@ -233,7 +247,7 @@
         <!-- This Menu Item Must have a parent -->
         <menuitem id="total_sales_incentive_root" action="total_sales_incentive_action"
                    sequence="11"
-                  parent="sale.sale_menu_root"/>
+                  parent="hr.menu_hr_root"/>
 
 
     </data>

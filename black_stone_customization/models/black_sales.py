@@ -23,6 +23,7 @@ class SalesIncentive(models.Model):
     type_amount = fields.Float(related="incentive_type.amount", string="Amount",required=True)
     note = fields.Text('Note')
     incentive_line_ids = fields.One2many('sales.incentive.line', 'incentive_line_id', string="Incentive")
+    incentive_person_ids = fields.One2many('sales.incentive.person', 'incentive_person_id', string="Incentive")
     date_from = fields.Datetime('Start Date',required=True)
     date_to = fields.Datetime('End Date',required=True)
     state = fields.Selection(
@@ -36,11 +37,34 @@ class SalesIncentive(models.Model):
                       \nThe status is \'Refused\', when request is refused by manager.\
                       \nThe status is \'Done\', when request is approved by manager.',
         default='draft')
+    check = fields.Boolean('Check')
+
+
+    def compute_incentive_person(self):
+        self.incentive_person_ids.unlink()
+        for rec in self:
+            amount = 0.0
+            incentive_person_line = self.env['sales.incentive.person']
+            partner_ids = self.env['res.users'].search([])
+            for partner in partner_ids:
+                sales_person_ids = self.env['sales.incentive.line'].search(
+                    [('user_id', '=', partner.id),('incentive_line_id','=',rec.id)])
+                if sales_person_ids:
+                    for sales_per in sales_person_ids:
+                        amount += sales_per.tot_invoice_amount
+                        record = incentive_person_line.create({
+                            'user_id': sales_per.user_id.id,
+                            'tot_incentive_amount': amount,
+                            'incentive_person_id': self.id,
+
+                        })
+
+
 
     @api.depends('incentive_line_ids')
     def get_tot_incentive(self):
         for rec in self:
-            for record in rec.incentive_line_ids:
+            for record in rec.incentive_person_ids:
                 rec.tot_incentive += record.tot_incentive_amount
 
 
@@ -73,26 +97,27 @@ class SalesIncentive(models.Model):
             sum = 0.0
             sold_qt = 0.0
             incentive_line = self.env['sales.incentive.line']
-            partner_ids = self.env['res.partner'].search([])
-            for partner in partner_ids:
+            user_ids = self.env['res.users'].search([])
+            for user in user_ids:
                 sales_ids = self.env['sale.order'].search([('date_order','>=',rec.date_from),('date_order','<=',rec.date_to)
-                                                           ,('partner_id','=',partner.id),('state','=','sale')])
+                                                           ,('user_id','=',user.id),('state','=','sale')])
                 if sales_ids :
                     for sales in sales_ids:
                         sales_line_ids = self.env['sale.order.line'].search(
                             [('order_id', '=', sales.id), ('product_template_id.incentive', '=', True)])
-                        for order_line in sales_line_ids:
-                            sum += order_line.price_unit
-                            sold_qt += order_line.product_uom_qty
-                            record = incentive_line.create({
-                                'partner_id': sales.partner_id.id,
-                                'product_id':order_line.product_template_id.id,
-                                'sold_quantity': sold_qt,
-                                'tot_invoice_amount': sum,
-                                'incentive_line_id':self.id,
+                        if sales_line_ids:
+                            for order_line in sales_line_ids:
+                                sum = order_line.price_unit
+                                sold_qt = order_line.product_uom_qty
+                                record = incentive_line.create({
+                                    'user_id': sales.user_id.id,
+                                    'product_id': order_line.product_template_id.id,
+                                    'sold_quantity': order_line.product_uom_qty,
+                                    'tot_invoice_amount': order_line.price_unit,
+                                    'incentive_line_id':self.id,
 
-                            })
-                            print('eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',record)
+                                })
+            rec.check = True
 
 
 
@@ -100,7 +125,6 @@ class SalesIncentive(models.Model):
 
 
 class SalesIncentiveLine(models.Model):
-    _inherit = ['mail.thread', 'mail.activity.mixin']
     _name = 'sales.incentive.line'
 
     incentive_line_id = fields.Many2one('sales.incentive', string="Incentive")
@@ -108,9 +132,22 @@ class SalesIncentiveLine(models.Model):
     partner_id = fields.Many2one('res.partner', string="Customer")
     product_id = fields.Many2one('product.template', string="product")
     sold_quantity = fields.Float('Sold Quantity')
+    sales_id = fields.Many2one('sale.order',string="Sales Order")
     tot_invoice_amount = fields.Float('Total Invoice Amount')
     type_amount = fields.Float(related="incentive_line_id.type_amount", string="Amount")
     tot_incentive_amount = fields.Float('Total Incentive Amount')
+    user_id = fields.Many2one('res.users',string="Sales person")
+
+
+class SalesIncentiveLine(models.Model):
+    _name = 'sales.incentive.person'
+
+    user_id = fields.Many2one('res.users',string="Sales person")
+    tot_incentive_amount = fields.Float('Total Incentive Amount')
+    incentive_person_id = fields.Many2one('sales.incentive', string="Incentive")
+
+
+
 
 
 
@@ -134,6 +171,7 @@ class SaleOrderLine(models.Model):
 
     incentive = fields.Boolean(related="product_template_id.incentive",readonly=True,string="Incentive")
     available_qty = fields.Float(related="product_id.qty_available", string="Available QTY", readonly=True)
+    get_incentive = fields.Boolean('Incentive')
 
 
 
@@ -158,7 +196,7 @@ class SaleOrder(models.Model):
             print('aml')
             order_line = self.env['sale.order.line'].search([('order_id','=',rec.id)])
             for order in order_line:
-                if order.product_uom_qty > order.available_qty:
+                if order.product_template_id.detailed_type == 'ptoduct' and order.product_uom_qty > order.available_qty:
                     raise UserError('the quantity is bigger than quantity in stock')
                     # self.action_cancel()
         return super(SaleOrder, self).action_confirm()
