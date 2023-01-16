@@ -41,7 +41,7 @@
                             <button name="action_view_checks" type="object"
                                     class="oe_stat_button" icon="fa-bars"
                                     string="Check(s)"
-                                    attrs="{'invisible': ['|',('state','!=', 'validate'),('payment_method_code','!=', 'check_printing')]}"
+                                    attrs="{'invisible': [('state','!=', 'validate')]}"
                             >
                             </button>
                         </div>
@@ -70,7 +70,8 @@
                             <field name="request_amount_words"
                                    attrs="{'readonly':[('state','in',['validate','reject','cleared'])]}"/>
 <!--                            <field name="un_cleared_amount" attrs="{'invisible':[('on_credit','=',False)]}"/>-->
-                            <field name="tot_cleared_amount" attrs="{'invisible':[('on_credit','=',False)]}"/>
+                            <field name="tot_cleared_amount" attrs="{'invisible':[('on_credit','=',False)]}" groups="account.group_account_user,account.group_account_manager,is_accounting_approval_15.general_manager_access_group"/>
+
 <!--                            <field name="is_cleared" invisible="1"/>-->
                             <field name="custody" invisible="1"/>
                         </group>
@@ -104,7 +105,8 @@
 
                                     <field name="partner_id"
                                            attrs="{'readonly':[('state','in',['validate'])],'invisible':[('on_credit','!=',False)]}"
-                                           groups="is_accounting_approval_15.user_access_group"/>
+                                                                                      groups="account.group_account_user,account.group_account_manager,is_accounting_approval_15.general_manager_access_group"/>
+
 
                                     <field name="analytic_account" groups="account.group_account_manager" invisible="1"/>
 <!--                                           attrs="{'invisible':[('custody','=', False)],'readonly':[('state','in',['validate'])]}"/>-->
@@ -115,12 +117,12 @@
 <!--                                    <field name="is_cleared" invisible="1"/>-->
                                     <field name="property_account_payable_id" invisible="1"/>
                                 </group>
-                                <group string="Finance Approval Details" colspan="4" col="4"
-                                       attrs="{'invisible':['|',('payment_method_code','=','check_printing'),('on_credit','!=',False)]}">
+                                <group string="Finance Approval Details" colspan="4" col="4">
+<!--                                        attrs="{'invisible':['|',('payment_method_code','=','check_printing'),('on_credit','!=',False)]}" groups="account.group_account_user,account.group_account_manager,is_accounting_approval_15.general_manager_access_group">  -->
                                     <field name="finance_approval_line_ids"
                                            attrs="{'readonly':[('state','in',['done','validate'])], 'required':[('custody','=', False)]}"
                                            nolabel="1"
-                                           context="{'default_name': reason, 'default_amount': request_amount, 'default_analytic_account_id': analytic_account, 'default_exp_account': property_account_payable_id}">
+                                          context="{'default_name': reason, 'default_amount': request_amount, 'default_analytic_account_id': analytic_account, 'default_exp_account': property_account_payable_id}" groups="account.group_account_user,account.group_account_manager,is_accounting_approval_15.general_manager_access_group">
                                         <tree editable="bottom">
                                             <field name="name"/>
                                             <field name="amount" sum="Total"/>
@@ -134,7 +136,7 @@
                                     </field>
                                 </group>
                                 <group colspan="4" col="4"
-                                       attrs="{'invisible':[('payment_method_code','!=','check_printing')]}">
+                                       attrs="{'invisible':[('payment_method_code','!=','check_printing')]}" groups="account.group_account_user">
                                     <field name="finance_approval_check_line_ids" nolabel="1"
                                            context="{'default_journal_id': journal_id,'default_analytic_account_id': analytic_account,'default_amount': request_amount}"
                                            attrs="{'readonly':[('state','=','done')]}">
