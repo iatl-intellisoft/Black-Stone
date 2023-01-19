@@ -35,6 +35,9 @@
                         <button string="Create Incentive" name="get_incentive"
                                 type="object"
                                 class="oe_highlight" attrs="{'invisible':[('check','=',True)]}"/>
+                        <button string="Recompute incentive" name="recompute_incentive"
+                                type="object"
+                                class="oe_highlight"/>
 
                         <field name="state" widget="statusbar" statusbar_visible="draft,approve,done,refuse"/>
                     </header>
@@ -60,7 +63,7 @@
                                     <field name="sold_quantity" sum="sold_quantity"/>
                                     <field name="tot_invoice_amount" sum="tot_invoice_amount"/>
                                     <field name="type_amount"/>
-<!--                                    <field name="tot_incentive_amount" sum="tot_incentive_amount"/>-->
+                                    <field name="incentive_amount" sum="incentive_amount"/>
                                 </tree>
                             </field>
                             </page>

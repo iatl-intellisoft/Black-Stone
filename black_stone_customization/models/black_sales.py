@@ -15,7 +15,7 @@ class SalesIncentive(models.Model):
         res = super(SalesIncentive, self).create(values)
         return res
 
-    name = fields.Char('Name')
+    name = fields.Char('Name',compute="get_name",store=True)
     ref = fields.Char(string='Sequence', default="/", readonly=True)
     request_date = fields.Date(string="Request Date",required=True)
     tot_incentive = fields.Float('Incentive Total',compute='get_tot_incentive',store=True)
@@ -40,28 +40,34 @@ class SalesIncentive(models.Model):
     check = fields.Boolean('Check')
 
 
+    @api.depends('date_from','date_to')
+    def get_name(self):
+        for rec in self:
+            if rec.date_from and rec.date_to:
+                rec.name = "Incentive for " +' '+str(rec.date_from) + 'to '+str(rec.date_to)
+
+
     def compute_incentive_person(self):
         self.incentive_person_ids.unlink()
         for rec in self:
-            amount = 0.0
             incentive_person_line = self.env['sales.incentive.person']
-            partner_ids = self.env['res.users'].search([])
-            for partner in partner_ids:
+            for partner in self.env['res.users'].search([]):
+                amount = 0.0
                 sales_person_ids = self.env['sales.incentive.line'].search(
                     [('user_id', '=', partner.id),('incentive_line_id','=',rec.id)])
                 if sales_person_ids:
                     for sales_per in sales_person_ids:
-                        amount += sales_per.tot_invoice_amount
-                        record = incentive_person_line.create({
-                            'user_id': sales_per.user_id.id,
-                            'tot_incentive_amount': amount,
-                            'incentive_person_id': self.id,
+                        amount += sales_per.incentive_amount
+                    record = incentive_person_line.create({
+                        'user_id': sales_per.user_id.id,
+                        'tot_incentive_amount': amount,
+                        'incentive_person_id': self.id,
 
-                        })
+                    })
 
 
 
-    @api.depends('incentive_line_ids')
+    @api.depends('incentive_person_ids')
     def get_tot_incentive(self):
         for rec in self:
             for record in rec.incentive_person_ids:
@@ -92,6 +98,24 @@ class SalesIncentive(models.Model):
             return super(SalesIncentive, x).unlink()
 
 
+
+    def recompute_incentive(self):
+        for rec in self:
+            sales_ids = self.env['sale.order'].search(
+                [('date_order', '>=', rec.date_from), ('date_order', '<=', rec.date_to)
+                    ,('state', '=', 'sale')])
+            if sales_ids:
+                for sales in sales_ids:
+                    for ince in self.env['sale.order.line'].search(
+                        [('order_id', '=', sales.id), ('product_template_id.incentive', '=', True),
+                         ('get_incentive', '=', True)]):
+                        ince.get_incentive = False
+                        print('ddddddddddddddddddddddddddddddddddddddddd',ince,ince.get_incentive)
+            rec.get_incentive()
+
+
+
+
     def get_incentive(self):
         for rec in self:
             sum = 0.0
@@ -104,7 +128,9 @@ class SalesIncentive(models.Model):
                 if sales_ids :
                     for sales in sales_ids:
                         sales_line_ids = self.env['sale.order.line'].search(
-                            [('order_id', '=', sales.id), ('product_template_id.incentive', '=', True)])
+                            [('order_id', '=', sales.id), ('product_template_id.incentive', '=', True),('get_incentive','=',False)])
+                        if not sales_line_ids:
+                            raise UserError('Already Incentive took in this period')
                         if sales_line_ids:
                             for order_line in sales_line_ids:
                                 sum = order_line.price_unit
@@ -117,6 +143,7 @@ class SalesIncentive(models.Model):
                                     'incentive_line_id':self.id,
 
                                 })
+                                order_line.get_incentive = True
             rec.check = True
 
 
@@ -134,9 +161,21 @@ class SalesIncentiveLine(models.Model):
     sold_quantity = fields.Float('Sold Quantity')
     sales_id = fields.Many2one('sale.order',string="Sales Order")
     tot_invoice_amount = fields.Float('Total Invoice Amount')
-    type_amount = fields.Float(related="incentive_line_id.type_amount", string="Amount")
-    tot_incentive_amount = fields.Float('Total Incentive Amount')
+    type_amount = fields.Float(related="incentive_line_id.type_amount", string="Amount/Percent")
+    incentive_type = fields.Many2one('incentive.config',related="incentive_line_id.incentive_type",string='Incentive Type')
+    incentive_amount = fields.Float('Incentive Amount',compute="get_incentive",store=True)
     user_id = fields.Many2one('res.users',string="Sales person")
+
+    @api.depends('incentive_type')
+    def get_incentive(self):
+        for rec in self:
+            if rec.incentive_type.type == 'amount':
+                rec.incentive_amount = rec.sold_quantity * rec.type_amount
+            if rec.incentive_type.type == 'percentage':
+                rec.incentive_amount = rec.tot_invoice_amount * (rec.type_amount /100)
+
+
+
 
 
 class SalesIncentiveLine(models.Model):
