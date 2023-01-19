@@ -5,7 +5,7 @@
     'category': 'Human Resources',
     'description': """alfakhir hr customization """,
 
-    'depends': ['base', 'hr', 'hr_payroll', 'hr_payroll_account', 'hr_attendance', 'hr_recruitment', 'account', 'hr_holidays','is_accounting_approval_15'],
+    'depends': ['base', 'hr', 'hr_payroll', 'hr_payroll_account', 'hr_attendance', 'hr_recruitment', 'account', 'hr_holidays','is_accounting_approval_14'],
     'data': [
         # security
         'security/black_security.xml',
