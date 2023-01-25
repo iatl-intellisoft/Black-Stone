@@ -17,7 +17,7 @@
     'data': [
         'security/ir.model.access.csv',
         'data/black_sequence.xml',
-        # 'security/account_security.xml',
+        'security/account_security.xml',
         'views/black_inventory_view.xml',
         'views/black_sales_view.xml',
         'views/black_account_view.xml',

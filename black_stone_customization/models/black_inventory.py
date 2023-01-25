@@ -12,9 +12,16 @@ class StockWarehouse(models.Model):
 class StockPicking(models.Model):
     _inherit = "stock.picking"
 
+    def _employee_get(self):
+        record = self.env['hr.employee'].search([('user_id', '=', self.env.user.id)], limit=1)
+        return record
+
+
     accountant_signature = fields.Many2one('hr.employee',string="Accountant Signature")
     inventory_manager_signature = fields.Many2one('hr.employee',string="Inventory Manager Signature")
-    inventory_user_signature = fields.Many2one('hr.employee',string="Inventory User Signature")
+    inventory_user_signature = fields.Many2one('hr.employee',
+                                               default=_employee_get,
+                                               string="Inventory User Signature")
     note = fields.Char('Note',default="company not responsible to deliver same product after 48 hour from printing delivery order, Goods are not returned or exchanged after being withdrawn from the warehouse ")
 
 
