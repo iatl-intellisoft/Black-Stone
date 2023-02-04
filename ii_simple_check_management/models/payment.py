@@ -230,8 +230,8 @@ class account_payment_register(models.TransientModel):
     clearance_date = fields.Date('Check Date')
     check_no = fields.Char('Check No.')
 
-    def _create_payment_vals_from_wizard(self):
-        payment_vals = super(account_payment_register, self)._create_payment_vals_from_wizard()
+    def _create_payment_vals_from_wizard(self,batch_result):
+        payment_vals = super()._create_payment_vals_from_wizard(batch_result)
         payment_vals.update(
             {
                 'check_type': self.check_type,
