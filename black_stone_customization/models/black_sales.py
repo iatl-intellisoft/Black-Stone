@@ -200,6 +200,26 @@ class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
     stock_number = fields.Char(related="warehouse_id.stock_number", readonly=True, string="Stock Number")
+    warehouse_id = fields.Many2one(
+        'stock.warehouse', string='Warehouse', required=True,
+        compute='_compute_warehouse_id', store=True, readonly=False, precompute=True,
+        states={'sale': [('readonly', True)], 'done': [('readonly', False)], 'cancel': [('readonly', False)]},
+        check_company=True)
+    
+    @api.depends('user_id', 'company_id')
+    def _compute_warehouse_id(self):
+        for order in self:
+            default_warehouse_id = self.env['ir.default'].with_company(
+                order.company_id.id).get_model_defaults('sale.order').get('warehouse_id')
+            if order.company_id and order.company_id != order._origin.company_id:
+                warehouse = default_warehouse_id
+            else:
+                warehouse = self.env['stock.warehouse']
+            if order.state in ['draft', 'sent']:
+                order.warehouse_id = False
+            # In case we create a record in another state (eg: demo data, or business code)
+            if not order.warehouse_id:
+                order.warehouse_id = False
 
     def action_confirm(self):
         for rec in self:
