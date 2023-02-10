@@ -30,6 +30,12 @@ class ProductTemplate(models.Model):
     _inherit = "product.template"
 
 
-    incentive = fields.Boolean('Incentive?')
+    incentive = fields.Boolean('Ineentive?')
+
+
+class StockMoveLine(models.Model):
+    _inherit = "stock.move.line"
+
+    num_krtona = fields.Float(string='Krtona')
 
 

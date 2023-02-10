@@ -229,13 +229,16 @@ class SaleOrder(models.Model):
                 if order.product_template_id.detailed_type == 'ptoduct' and order.product_uom_qty > order.available_qty:
                     raise UserError('the quantity is bigger than quantity in stock')
                     # self.action_cancel()
+                move_ids = order.picking_ids.move_ids_without_package
+                for move in move_ids:
+                    if move.product_id.id == order.product_id.id:
+                        move.write({'num_krtona': order.product_packaging_qty})
         res = super(SaleOrder, self).action_confirm()
         for pick in self.picking_ids:
             pick.accountant_signature = self.env['hr.employee'].search([('user_id', '=', self.env.user.id)])
             group = self.env['res.groups'].search([('name','=','Accounting Manager')], limit=1)
             pick.inventory_manager_signature = self.env['hr.employee'].search([('user_id', 'in', group.users.ids)], limit=1)
             pick.inventory_user_signature = self.env['hr.employee'].search([('user_id', '=', self.env.user.login)])
-
         return res
 
     def _prepare_invoice(self):

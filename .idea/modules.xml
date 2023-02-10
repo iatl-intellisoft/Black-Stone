@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/../ALTASAMOH/.idea/ALTASAMOH.iml" filepath="$PROJECT_DIR$/../ALTASAMOH/.idea/ALTASAMOH.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/Black-Stone.iml" filepath="$PROJECT_DIR$/.idea/Black-Stone.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../enterprise_16.0/.idea/enterprise_16.0.iml" filepath="$PROJECT_DIR$/../enterprise_16.0/.idea/enterprise_16.0.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../Kambal-master/.idea/kamball_git.iml" filepath="$PROJECT_DIR$/../Kambal-master/.idea/kamball_git.iml" />
+    </modules>
+  </component>
+</project>

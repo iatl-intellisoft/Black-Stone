@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="20060bc9-a1f5-4c8a-bf6e-d0e468f9edb3" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../ALTASAMOH/altasamoh_customizations/views/cron_actions.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../ALTASAMOH/altasamoh_customizations/views/cron_actions.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/black_stone_customization/models/black_inventory.py" beforeDir="false" afterPath="$PROJECT_DIR$/black_stone_customization/models/black_inventory.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/black_stone_customization/models/black_sales.py" beforeDir="false" afterPath="$PROJECT_DIR$/black_stone_customization/models/black_sales.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2LY14YLn9m9EjaQCYHWmxgoC9hC" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "/home/aml/enterprise_16.0"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="20060bc9-a1f5-4c8a-bf6e-d0e468f9edb3" name="Changes" comment="" />
+      <created>1676033013242</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1676033013242</updated>
+    </task>
+    <servers />
+  </component>
+</project>
