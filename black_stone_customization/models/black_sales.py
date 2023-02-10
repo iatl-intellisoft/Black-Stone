@@ -229,7 +229,7 @@ class SaleOrder(models.Model):
                 if order.product_template_id.detailed_type == 'ptoduct' and order.product_uom_qty > order.available_qty:
                     raise UserError('the quantity is bigger than quantity in stock')
                     # self.action_cancel()
-                move_ids = order.picking_ids.move_ids_without_package
+                move_ids = rec.picking_ids.move_ids_without_package
                 for move in move_ids:
                     if move.product_id.id == order.product_id.id:
                         move.write({'num_krtona': order.product_packaging_qty})
