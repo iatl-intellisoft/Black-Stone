@@ -34,7 +34,7 @@ class ProductTemplate(models.Model):
 
 
 class StockMoveLine(models.Model):
-    _inherit = "stock.move.line"
+    _inherit = "stock.move"
 
     num_krtona = fields.Float(string='Krtona')
 
