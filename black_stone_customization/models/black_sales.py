@@ -231,8 +231,8 @@ class SaleOrder(models.Model):
                     # self.action_cancel()
                 move_ids = rec.picking_ids.move_ids_without_package
                 for move in move_ids:
-                    if move.product_id.id == order.product_id.id:
-                        move.write({'num_krtona': order.product_packaging_qty})
+#                     if move.product_id.id == order.product_id.id:
+                    move.write({'num_krtona': order.product_packaging_qty})
         res = super(SaleOrder, self).action_confirm()
         for pick in self.picking_ids:
             pick.accountant_signature = self.env['hr.employee'].search([('user_id', '=', self.env.user.id)])
