@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <record forcecreate="True" id="decimal_second_currency_rate" model="decimal.precision">
+            <field name="name">Second Currency Rate</field>
+            <field name="digits">12</field>
+        </record>
+
+    </data>
+</odoo>
