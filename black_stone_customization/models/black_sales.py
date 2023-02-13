@@ -221,25 +221,79 @@ class SaleOrder(models.Model):
             if not order.warehouse_id:
                 order.warehouse_id = False
 
+#     def action_confirm(self):
+#         for rec in self:
+#             print('aml')
+#             order_line = self.env['sale.order.line'].search([('order_id', '=', rec.id)])
+#             for order in order_line:
+#                 if order.product_template_id.detailed_type == 'ptoduct' and order.product_uom_qty > order.available_qty:
+#                     raise UserError('the quantity is bigger than quantity in stock')
+#                     # self.action_cancel()
+#                 move_ids = rec.picking_ids.move_ids_without_package
+#                 for move in move_ids:
+# #                     if move.product_id.id == order.product_id.id:
+#                     move.write({'num_krtona': order.product_packaging_qty})
+#         res = super(SaleOrder, self).action_confirm()
+#         for pick in self.picking_ids:
+#             pick.accountant_signature = self.env['hr.employee'].search([('user_id', '=', self.env.user.id)])
+#             group = self.env['res.groups'].search([('name','=','Accounting Manager')], limit=1)
+#             pick.inventory_manager_signature = self.env['hr.employee'].search([('user_id', 'in', group.users.ids)], limit=1)
+#             pick.inventory_user_signature = self.env['hr.employee'].search([('user_id', '=', self.env.user.login)])
+#         return res
+#
+
+
+
     def action_confirm(self):
-        for rec in self:
-            print('aml')
-            order_line = self.env['sale.order.line'].search([('order_id', '=', rec.id)])
-            for order in order_line:
-                if order.product_template_id.detailed_type == 'ptoduct' and order.product_uom_qty > order.available_qty:
+        """ Confirm the given quotation(s) and set their confirmation date.
+
+        If the corresponding setting is enabled, also locks the Sale Order.
+
+        :return: True
+        :rtype: bool
+        :raise: UserError if trying to confirm locked or cancelled SO's
+        """
+        if self._get_forbidden_state_confirm() & set(self.mapped('state')):
+            raise UserError(_(
+                "It is not allowed to confirm an order in the following states: %s",
+                ", ".join(self._get_forbidden_state_confirm()),
+            ))
+
+        self.order_line._validate_analytic_distribution()
+
+        for order in self:
+            if order.partner_id in order.message_partner_ids:
+                continue
+            order.message_subscribe([order.partner_id.id])
+            order_line = self.env['sale.order.line'].search([('order_id', '=', order.id)])
+            for po in order_line:
+                if po.product_template_id.detailed_type == 'product' and po.product_uom_qty > po.available_qty:
                     raise UserError('the quantity is bigger than quantity in stock')
-                    # self.action_cancel()
-                move_ids = rec.picking_ids.move_ids_without_package
-                for move in move_ids:
-#                     if move.product_id.id == order.product_id.id:
+            move_ids = order.picking_ids.move_ids_without_package
+            for move in move_ids:
+                print('dddddddddddddddddddddd',move_ids)
+                if move.product_id.id == order.product_id.id:
+                    print('111111111111111111')
                     move.write({'num_krtona': order.product_packaging_qty})
-        res = super(SaleOrder, self).action_confirm()
-        for pick in self.picking_ids:
-            pick.accountant_signature = self.env['hr.employee'].search([('user_id', '=', self.env.user.id)])
-            group = self.env['res.groups'].search([('name','=','Accounting Manager')], limit=1)
-            pick.inventory_manager_signature = self.env['hr.employee'].search([('user_id', 'in', group.users.ids)], limit=1)
-            pick.inventory_user_signature = self.env['hr.employee'].search([('user_id', '=', self.env.user.login)])
-        return res
+
+            for pick in order.picking_ids:
+                pick.accountant_signature = self.env['hr.employee'].search([('user_id', '=', self.env.user.id)])
+                group = self.env['res.groups'].search([('name','=','Accounting Manager')], limit=1)
+                pick.inventory_manager_signature = self.env['hr.employee'].search([('user_id', 'in', group.users.ids)], limit=1)
+                pick.inventory_user_signature = self.env['hr.employee'].search([('user_id', '=', self.env.user.login)])
+
+        self.write(self._prepare_confirmation_values())
+
+        # Context key 'default_name' is sometimes propagated up to here.
+        # We don't need it and it creates issues in the creation of linked records.
+        context = self._context.copy()
+        context.pop('default_name', None)
+
+        self.with_context(context)._action_confirm()
+        if self.env.user.has_group('sale.group_auto_done_setting'):
+            self.action_done()
+
+        return True
 
     def _prepare_invoice(self):
         """
