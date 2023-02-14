@@ -198,12 +198,12 @@ class CheckFollowups(models.Model):
             amount = r.payment_id.amount
             lines = []
             currency_id = False
-            if amount_currency:
-                currency_id = r.payment_id.currency_id.id
+#             if amount_currency:
+            currency_id = r.payment_id.currency_id.id
             lines.append((0, 0, r._get_move_line_vals(debit, credit, amount, currency_id, debit_account_id)))
             lines.append((0, 0, r._get_move_line_vals(credit, debit, amount, currency_id, credit_account_id)))
             move.write({'line_ids': lines})
-            move.post()
+            move.action_post()
             last_state_label = dict(r.fields_get(allfields=['state'])['state']['selection'])[r.Last_state]
             state_label = dict(r.fields_get(allfields=['state'])['state']['selection'])[r.state]
             description = "تم التحويل من " + last_state_label + " الي " + state_label
