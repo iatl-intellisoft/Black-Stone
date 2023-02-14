@@ -117,7 +117,7 @@
 <!--                                    <field name="is_cleared" invisible="1"/>-->
                                     <field name="property_account_payable_id" invisible="1"/>
                                 </group>
-                                <group string="Finance Approval Details" colspan="4" col="4">
+<!--                                 <group string="Finance Approval Details" colspan="4" col="4"> -->
 <!--                                        attrs="{'invisible':['|',('payment_method_code','=','check_printing'),('on_credit','!=',False)]}" groups="account.group_account_user,account.group_account_manager,is_accounting_approval_15.general_manager_access_group">  -->
                                     <field name="finance_approval_line_ids"
                                            attrs="{'readonly':[('state','in',['done','validate'])], 'required':[('custody','=', False)]}"
@@ -134,7 +134,7 @@
                                             <field name="pa_name" invisible="1"/>
                                         </tree>
                                     </field>
-                                </group>
+<!--                                 </group> -->
                                 <group colspan="4" col="4"
                                        attrs="{'invisible':[('payment_method_code','!=','check_printing')]}" groups="account.group_account_user">
                                     <field name="finance_approval_check_line_ids" nolabel="1"
