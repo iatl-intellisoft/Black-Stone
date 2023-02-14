@@ -284,11 +284,15 @@ class CheckFollowups(models.Model):
         self.WriteLog(payment.move_id.line_ids[0].move_id.id, description, str(today), payment_id=payment.id)
 
     def _get_move_line_accounts(self):
+        log = self.log_ids
+        move_id = self.log_ids.move_id
+        account = move_id.line_ids[0].account_id
+       
         self.ensure_one()
         if self.type == 'inbound':
             # Customer part
             if self.state == 'in_bank' and self.Last_state == 'under_collection':
-                return self.payment_id.journal_id.default_account_id.id, self.company_id.account_journal_payment_debit_account_id.id
+                return self.payment_id.journal_id.default_account_id.id, account.id
             if self.state == 'rdc' and self.Last_state == 'under_collection':
                 return self.payment_id.journal_id.rdc.id, self.company_id.account_journal_payment_debit_account_id.id
             elif self.state == 'under_collection' and self.Last_state == 'rdc':
@@ -300,7 +304,7 @@ class CheckFollowups(models.Model):
             elif self.state == 'return_acc' and self.Last_state == 'rdc':
                 return self.account_holder.property_account_receivable_id.id, self.payment_id.journal_id.rdc.id
             elif self.state == 'return_acc' and self.Last_state == 'under_collection':
-                return self.account_holder.property_account_receivable_id.id, self.company_id.account_journal_payment_debit_account_id.id
+                return self.account_holder.property_account_receivable_id.id, account.id
             elif self.state == 'return_acc' and self.Last_state == 'in_bank':
                 return self.account_holder.property_account_receivable_id.id, self.payment_id.journal_id.default_account_id.id
             else:
@@ -317,9 +321,9 @@ class CheckFollowups(models.Model):
             # Vendor Part
             if self.payment_id:
                 if self.state == 'withdrawal' and self.Last_state == 'out_standing':
-                    return self.company_id.account_journal_payment_credit_account_id.id, self.payment_id.journal_id.default_account_id.id
+                    return account.id, self.payment_id.journal_id.default_account_id.id
                 elif self.state == 'rdv' and self.Last_state == 'out_standing':
-                    return self.company_id.account_journal_payment_credit_account_id.id, self.payment_id.journal_id.rdv.id
+                    return account.id, self.payment_id.journal_id.rdv.id
                 elif self.state == 'rdv' and self.Last_state == 'withdrawal':
                     return self.payment_id.journal_id.default_account_id.id, self.payment_id.journal_id.rdv.id
                 elif self.state == 'withdrawal' and self.Last_state == 'rdv':
@@ -327,7 +331,7 @@ class CheckFollowups(models.Model):
                 elif self.state == 'return_acv' and self.Last_state == 'rdv':
                     return self.payment_id.journal_id.rdv.id, self.payment_id.partner_id.property_account_payable_id.id
                 elif self.state == 'return_acv' and self.Last_state == 'out_standing':
-                    return self.company_id.account_journal_payment_credit_account_id.id, self.payment_id.partner_id.property_account_payable_id.id
+                    return account.id, self.payment_id.partner_id.property_account_payable_id.id
                 else:
                     print('self.Last_state', self.Last_state)
                     print('self.state', self.state)
