@@ -536,7 +536,7 @@ class FinanceApproval(models.Model):
                 # corresponding details in account_move_line
                 if self.payment_method_code != 'check_printing':
                     self.move_id = self.env['account.move'].create(self.move_without_check())
-                    self.move_id.post()
+                    self.move_id.action_post()
                     self.state = 'validate'
                     self.ca_app_id = self.env.user.id
                 elif self.payment_method_code == 'check_printing':
@@ -604,7 +604,7 @@ class FinanceApproval(models.Model):
                     }
                     # add lines
                     self.move_id = self.env['account.move'].create(vals)
-                    self.move_id.post()
+                    self.move_id.action_post()
                     # Change state if all went well!
                     self.state = 'validate'
                     self.tr_id = self.env.user.id
