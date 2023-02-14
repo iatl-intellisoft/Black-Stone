@@ -365,7 +365,7 @@ class FinanceApproval(models.Model):
                     'currency_id': self.request_currency.id,
                     'amount_currency': line1.amount,
                     'debit': line1.amount / self.request_currency.rate,
-                    'analytic_account_id': line1.analytic_account_id.id,
+#                     'analytic_account_id': line1.analytic_account_id.id,
                     'company_id': self.company_id.id,
                 }
                 MONTH_LIST = [('1', 'Jan'), ('2', 'Feb'), ('3', 'Mar'), ('4', 'Apr'), ('5', 'May'), ('6', 'Jun'),
@@ -457,7 +457,7 @@ class FinanceApproval(models.Model):
                     'partner_id': self.partner_id.id,
                     'account_id': line1.exp_account.id,
                     'debit': line1.amount,
-                    'analytic_account_id': line1.analytic_account_id.id,
+#                     'analytic_account_id': line1.analytic_account_id.id,
                     'company_id': self.company_id.id,
                 }
                 entrys.append((0, 0, debit_val))
@@ -518,7 +518,7 @@ class FinanceApproval(models.Model):
                 line = (0, 0, {
                     'name': x.name,
                     'account_id': x.exp_account.id,
-                    'analytic_account_id': x.analytic_account_id.id,
+#                     'analytic_account_id': x.analytic_account_id.id,
                     'amount': x.amount,
 
                 })
@@ -579,7 +579,7 @@ class FinanceApproval(models.Model):
                                 'debit': line.amount / self.request_currency.rate,
                                 'currency_id': self.request_currency.id,
                                 'amount_currency': line.amount,
-                                'analytic_account_id': line.analytic_account_id.id,
+#                                 'analytic_account_id': line.analytic_account_id.id,
                                 'company_id': self.company_id.id,
                             }
                             entrys.append((0, 0, debit_val))
@@ -589,7 +589,7 @@ class FinanceApproval(models.Model):
                             'partner_id': self.partner_id.id,
                             'account_id': self.exp_account.id,
                             'debit': self.request_amount > 0.0 and self.request_amount or 0.0,
-                            'analytic_account_id': self.analytic_account.id,
+#                             'analytic_account_id': self.analytic_account.id,
                             'credit': self.request_amount < 0.0 and -self.request_amount or 0.0,
                             'company_id': self.company_id.id,
                         }
