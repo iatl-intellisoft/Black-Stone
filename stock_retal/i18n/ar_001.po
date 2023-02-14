@@ -1,0 +1,293 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* stock_retal
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-01-29 07:29+0000\n"
+"PO-Revision-Date: 2023-01-29 07:29+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: stock_retal
+#: model_terms:ir.ui.view,arch_db:stock_retal.print_scrap_product_report
+msgid ""
+"<span style=\"font-size: 14px;color:White\">\n"
+"                        <strong>#################################</strong>\n"
+"                        </span>"
+msgstr ""
+
+#. module: stock_retal
+#: model_terms:ir.ui.view,arch_db:stock_retal.print_adjustments_product_report
+msgid ""
+"<span style=\"font-size: 14px;color:White\">\n"
+"                        <strong>#################################</strong>\n"
+"                        </span>\n"
+"                 <span style=\"font-size: 14px;color:White\">\n"
+"                        <strong>#################################</strong>\n"
+"                        </span>"
+msgstr ""
+
+#. module: stock_retal
+#: model_terms:ir.ui.view,arch_db:stock_retal.print_adjustments_product_report
+#: model_terms:ir.ui.view,arch_db:stock_retal.print_scrap_product_report
+msgid "<strong>From</strong>:"
+msgstr "من"
+
+#. module: stock_retal
+#: model_terms:ir.ui.view,arch_db:stock_retal.print_adjustments_product_report
+#: model_terms:ir.ui.view,arch_db:stock_retal.print_scrap_product_report
+msgid "<strong>To</strong>:"
+msgstr "الي"
+
+#. module: stock_retal
+#: model:ir.actions.act_window,name:stock_retal.adjustmentts_product_order_wizard
+#: model:ir.actions.report,name:stock_retal.quantity_adjustmentts_product_reports
+#: model:ir.ui.menu,name:stock_retal.adjustmentts_reportss_wizard
+#: model_terms:ir.ui.view,arch_db:stock_retal.adjustmentts_product_report
+#: model_terms:ir.ui.view,arch_db:stock_retal.print_adjustments_product_report
+msgid "Adjustments Product Report"
+msgstr "تقرير جرد المخزون"
+
+#. module: stock_retal
+#: model_terms:ir.ui.view,arch_db:stock_retal.adjustmentts_product_report
+#: model_terms:ir.ui.view,arch_db:stock_retal.scrap_product_report
+msgid "Cancel"
+msgstr "الغاء"
+
+#. module: stock_retal
+#: model_terms:ir.ui.view,arch_db:stock_retal.print_adjustments_product_report
+msgid "Code"
+msgstr "الكود"
+
+#. module: stock_retal
+#: model_terms:ir.ui.view,arch_db:stock_retal.print_adjustments_product_report
+msgid "Cost"
+msgstr "سعر التكلفة"
+
+#. module: stock_retal
+#: model:ir.model.fields,field_description:stock_retal.field_adjustmentts_product_wizard__create_uid
+#: model:ir.model.fields,field_description:stock_retal.field_scrap_product_wizard__create_uid
+msgid "Created by"
+msgstr "تم الانشاء بواسطه"
+
+#. module: stock_retal
+#: model:ir.model.fields,field_description:stock_retal.field_adjustmentts_product_wizard__create_date
+#: model:ir.model.fields,field_description:stock_retal.field_scrap_product_wizard__create_date
+msgid "Created on"
+msgstr "تم الانشاء في"
+
+#. module: stock_retal
+#: model:ir.model.fields,field_description:stock_retal.field_stock_landed_cost__currency_id
+msgid "Currency"
+msgstr "العملة"
+
+#. module: stock_retal
+#: model:ir.model.fields,field_description:stock_retal.field_stock_scrap__partner_id
+msgid "Customer"
+msgstr "العميل"
+
+#. module: stock_retal
+#: model:ir.model.fields,field_description:stock_retal.field_adjustmentts_product_wizard__display_name
+#: model:ir.model.fields,field_description:stock_retal.field_scrap_product_wizard__display_name
+msgid "Display Name"
+msgstr "عرض الاسم"
+
+#. module: stock_retal
+#: model:ir.model.fields.selection,name:stock_retal.selection__stock_scrap__state__done
+msgid "Done"
+msgstr "منتهي "
+
+#. module: stock_retal
+#: model:ir.model.fields.selection,name:stock_retal.selection__stock_scrap__state__draft
+msgid "Draft"
+msgstr "مسودة"
+
+#. module: stock_retal
+#: model:ir.model.fields,field_description:stock_retal.field_adjustmentts_product_wizard__date_end
+#: model:ir.model.fields,field_description:stock_retal.field_scrap_product_wizard__date_end
+msgid "End Date"
+msgstr "تاريخ الانتهاء"
+
+#. module: stock_retal
+#: model:ir.model.fields,field_description:stock_retal.field_adjustmentts_product_wizard__id
+#: model:ir.model.fields,field_description:stock_retal.field_scrap_product_wizard__id
+msgid "ID"
+msgstr "الرقم التعريفي"
+
+#. module: stock_retal
+#: model:ir.model.fields,field_description:stock_retal.field_stock_move_line__num_krtona
+msgid "Krtona"
+msgstr ""
+
+#. module: stock_retal
+#: model:ir.model.fields,field_description:stock_retal.field_adjustmentts_product_wizard____last_update
+#: model:ir.model.fields,field_description:stock_retal.field_scrap_product_wizard____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: stock_retal
+#: model:ir.model.fields,field_description:stock_retal.field_adjustmentts_product_wizard__write_uid
+#: model:ir.model.fields,field_description:stock_retal.field_scrap_product_wizard__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: stock_retal
+#: model:ir.model.fields,field_description:stock_retal.field_adjustmentts_product_wizard__write_date
+#: model:ir.model.fields,field_description:stock_retal.field_scrap_product_wizard__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: stock_retal
+#: model:ir.model.fields,field_description:stock_retal.field_stock_move__num_krtona
+msgid "NO Of  Sale Krtona"
+msgstr "كمية كراتين البيع"
+
+#. module: stock_retal
+#: model:ir.model.fields,field_description:stock_retal.field_stock_move__num_krtona_purchase
+msgid "NO Of Purchase Krtona"
+msgstr "كمية كراتين الشراء"
+
+#. module: stock_retal
+#: model_terms:ir.ui.view,arch_db:stock_retal.print_adjustments_product_report
+msgid "On Hand Quantity"
+msgstr "الكمية باليد"
+
+#. module: stock_retal
+#: model_terms:ir.ui.view,arch_db:stock_retal.adjustmentts_product_report
+#: model_terms:ir.ui.view,arch_db:stock_retal.scrap_product_report
+msgid "Print"
+msgstr "طباعة"
+
+#. module: stock_retal
+#: model:ir.model.fields,field_description:stock_retal.field_adjustmentts_product_wizard__product_id
+#: model:ir.model.fields,field_description:stock_retal.field_scrap_product_wizard__product_id
+msgid "Product"
+msgstr "المنتج"
+
+#. module: stock_retal
+#: model:ir.model,name:stock_retal.model_stock_move_line
+msgid "Product Moves (Stock Move Line)"
+msgstr "تحركات المنتج (بنود حركة المخزون)"
+
+#. module: stock_retal
+#: model_terms:ir.ui.view,arch_db:stock_retal.print_scrap_product_report
+msgid "QTY Scraped"
+msgstr "الكمية التالفة"
+
+#. module: stock_retal
+#: model_terms:ir.ui.view,arch_db:stock_retal.print_adjustments_product_report
+msgid "Quantity"
+msgstr ""
+
+#. module: stock_retal
+#: model_terms:ir.ui.view,arch_db:stock_retal.print_scrap_product_report
+msgid "Reference"
+msgstr "مرجع"
+
+#. module: stock_retal
+#: model:ir.model.fields.selection,name:stock_retal.selection__stock_scrap__state__sale_order
+msgid "Sale Order"
+msgstr "أمر البيع"
+
+#. module: stock_retal
+#: model_terms:ir.ui.view,arch_db:stock_retal.print_adjustments_product_report
+msgid "Sales Price"
+msgstr "سعر البيع"
+
+#. module: stock_retal
+#: model_terms:ir.ui.view,arch_db:stock_retal.print_adjustments_product_report
+msgid "Scheduled Date"
+msgstr "التاريخ"
+
+#. module: stock_retal
+#: model:ir.model,name:stock_retal.model_stock_scrap
+msgid "Scrap"
+msgstr "مخلفات التصنيع "
+
+#. module: stock_retal
+#: model_terms:ir.ui.view,arch_db:stock_retal.print_scrap_product_report
+msgid "Scrap Location"
+msgstr "موقع المنتجات التالفة"
+
+#. module: stock_retal
+#: model:ir.actions.act_window,name:stock_retal.scrap_product_order_wizard
+#: model:ir.actions.report,name:stock_retal.quantity_scrap_product_reports
+#: model:ir.ui.menu,name:stock_retal.scrap_reportss_wizard
+#: model_terms:ir.ui.view,arch_db:stock_retal.print_scrap_product_report
+#: model_terms:ir.ui.view,arch_db:stock_retal.scrap_product_report
+msgid "Scrap Product Report"
+msgstr "تقرير المنتجات التالفة"
+
+#. module: stock_retal
+#: model:ir.model.fields,field_description:stock_retal.field_adjustmentts_product_wizard__date_start
+#: model:ir.model.fields,field_description:stock_retal.field_scrap_product_wizard__date_start
+msgid "Start Date"
+msgstr "تاريخ البدء"
+
+#. module: stock_retal
+#: model:ir.model.fields,field_description:stock_retal.field_stock_scrap__state
+msgid "Status"
+msgstr "الحالة"
+
+#. module: stock_retal
+#: model:ir.model,name:stock_retal.model_stock_landed_cost
+msgid "Stock Landed Cost"
+msgstr "التكاليف الكلية لبضاعة المخزون "
+
+#. module: stock_retal
+#: model:ir.model,name:stock_retal.model_stock_move
+msgid "Stock Move"
+msgstr "حركة المخزون"
+
+#. module: stock_retal
+#: model_terms:ir.ui.view,arch_db:stock_retal.print_adjustments_product_report
+msgid "Total Cost"
+msgstr "اجمالي سعر التكلفة"
+
+#. module: stock_retal
+#: model_terms:ir.ui.view,arch_db:stock_retal.print_adjustments_product_report
+msgid "Total Sale"
+msgstr "اجمالي سعر البيع"
+
+#. module: stock_retal
+#: model:ir.model,name:stock_retal.model_adjustmentts_product_wizard
+msgid "adjustmentts.product.wizard"
+msgstr ""
+
+#. module: stock_retal
+#: model_terms:ir.ui.view,arch_db:stock_retal.print_scrap_product_report
+msgid "location"
+msgstr "الموقع"
+
+#. module: stock_retal
+#: model:ir.model,name:stock_retal.model_report_stock_retal_print_adjustments_product_report
+msgid "report.stock_retal.print_adjustments_product_report"
+msgstr ""
+
+#. module: stock_retal
+#: model:ir.model,name:stock_retal.model_report_stock_retal_print_scrap_product_report
+msgid "report.stock_retal.print_scrap_product_report"
+msgstr ""
+
+#. module: stock_retal
+#: model:ir.model,name:stock_retal.model_scrap_product_wizard
+msgid "scrap.product.wizard"
+msgstr ""
+
+#. module: stock_retal
+#: model_terms:ir.ui.view,arch_db:stock_retal.print_scrap_product_report
+msgid "status"
+msgstr "الحالة"
+
+#. module: stock_retal
+#: model_terms:ir.ui.view,arch_db:stock_retal.print_adjustments_product_report
+#: model_terms:ir.ui.view,arch_db:stock_retal.print_scrap_product_report
+msgid "المنتج"
+msgstr ""
