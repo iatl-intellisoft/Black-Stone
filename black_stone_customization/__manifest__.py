@@ -13,7 +13,7 @@
     'website': "http://www.iatl-sd.com",
     'category': 'base',
     'version': '0.1',
-    'depends': ['account','stock','hr','sale','sale_stock','hr_recruitment','hr_payroll],
+    'depends': ['account','stock','hr','sale','sale_stock','hr_recruitment','hr_payroll'],
     'data': [
         'security/ir.model.access.csv',
         'data/black_sequence.xml',
