@@ -28,6 +28,7 @@ class HrPayslip(models.Model):
     long_loan = fields.Float(compute="get_long_loan", store=True, string="Long Loan")
     short_loan = fields.Float(compute="get_short_loan", store=True, string="Long Loan")
     incentive = fields.Float(compute="get_incentive", store=True,string="Incentive")
+    payroll_rate = fields.Float('Payroll rate')
 
     @api.depends('employee_id', 'date_to', 'date_from')
     def get_loan(self):
