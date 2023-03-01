@@ -218,8 +218,6 @@
 					</group>
 					<notebook>
 						<page string="Installments">
-							<button name="%(action_delay_loan)d" type="action"
-                            string="Stop and delay loan" class="oe_highlight" states="done" groups="is_hr_loan.group_hr_trip_finance_manager"/>
 							<field name="loan_line_ids" attrs="{'readonly':[('state','in',['done','stop'])]}">
 								<tree string="Loan Line" editable="bottom">
 									<field name="paid_date" attrs="{'readonly':True}"/>
