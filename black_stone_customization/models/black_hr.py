@@ -31,7 +31,7 @@ class HrPayslip(models.Model):
     payroll_rate = fields.Float('Payroll rate')
 
     @api.depends('employee_id', 'date_to', 'date_from')
-    def get_loan(self):
+    def get_long_loan(self):
         for rec in self:
             if rec.employee_id:
                 loan_ids = self.env['hr.loan.line'].search(
@@ -41,7 +41,7 @@ class HrPayslip(models.Model):
                 rec.long_loan = sum(loan_ids.mapped('amount'))
 
     @api.depends('employee_id', 'date_to', 'date_from')
-    def get_advance_salary(self):
+    def get_short_loan(self):
         for x in self:
             if x.employee_id:
                 amount = 0.00
