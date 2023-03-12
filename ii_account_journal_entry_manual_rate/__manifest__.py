@@ -14,7 +14,7 @@
     'version': '16.0.1.0',
     'depends': ['account'],
     'data': [
-        'data/account_currency_data.xml',
+#         'data/account_currency_data.xml',
         'views/account_move.xml',
     ],
     'installable': True,
