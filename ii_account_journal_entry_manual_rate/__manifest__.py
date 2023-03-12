@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #######################################################################
-#     Copyright (C) 2022 IATL IntelliSoft Business Solutions Co. Ltd. #
+#     Copyright (C) 2023 IATL IntelliSoft Business Solutions Co. Ltd. #
 #     (<https://www.iatl-intellisoft.com>) all rights reserved.       #
 #######################################################################
 
@@ -14,7 +14,7 @@
     'version': '16.0.1.0',
     'depends': ['account'],
     'data': [
-#         'data/account_currency_data.xml',
+        'data/account_currency_data.xml',
         'views/account_move.xml',
     ],
     'installable': True,

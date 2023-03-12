@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
-###############################################################################
-#
-#    IATL International Pvt. Ltd.
-#    Copyright (C) 2020-TODAY Tech-Receptives(<http://www.iatl-sd.com>).
-#
-###############################################################################
+#######################################################################
+#     Copyright (C) 2023 IATL IntelliSoft Business Solutions Co. Ltd. #
+#     (<https://www.iatl-intellisoft.com>) all rights reserved.       #
+#######################################################################
 
 from . import models
