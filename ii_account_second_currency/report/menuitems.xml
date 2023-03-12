@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <menuitem id="menu_finance_second_currency_reports" name="SC Reporting" sequence="21" parent="account_accountant.menu_accounting"/>
+
+        <menuitem id="account_reports_legal_sc_statements_menu" name="SC Statement Reports" sequence="1" parent="ii_account_second_currency.menu_finance_second_currency_reports"/>
+
+        <menuitem id="account_reports_audit_sc_reports_menu" name="SC Audit Reports" sequence="2" parent="ii_account_second_currency.menu_finance_second_currency_reports"/>
+
+        <menuitem id="menu_action_account_report_balance_sheet" name="SC Balance Sheet" sequence="1" action="ii_account_second_currency.action_account_report_second_currency_bs" parent="ii_account_second_currency.account_reports_legal_sc_statements_menu"/>
+
+        <menuitem id="menu_action_account_report_profit_and_loss" name="SC Profit and Loss" sequence="2" action="ii_account_second_currency.action_account_report_second_currency_pl" parent="ii_account_second_currency.account_reports_legal_sc_statements_menu"/>
+
+        <menuitem id="menu_action_account_report_general_ledger" name="SC General Ledger" sequence="1" parent="ii_account_second_currency.account_reports_audit_sc_reports_menu" action="ii_account_second_currency.action_account_report_general_ledger_second_currency"/>
+
+        <menuitem id="menu_action_account_report_trail_balance" name="SC Trail Balance" sequence="2" action="ii_account_second_currency.action_account_report_second_currency_coa" parent="ii_account_second_currency.account_reports_audit_sc_reports_menu"/>
+
+    </data>
+</odoo>

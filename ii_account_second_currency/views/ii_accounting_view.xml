@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_form_account_move_second_currency" model="ir.ui.view">
+        <field name="name">view.form.account.move.second.currency</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='ref']" position="after">
+                <field name="second_currency_id"/>
+                <field name="second_currency_rate"/>
+            </xpath>
+            <xpath expr="//field[@name='line_ids']/tree/field[@name='credit']" position="after">
+                <field name="second_currency_debit" sum="Total Secondary Currency Debit" optional="hide"/>
+                <field name="second_currency_credit" sum="Total Secondary Currency Credit" optional="hide"/>
+                <field name="second_currency_balance" optional="hide"/>
+                <field name="second_currency_amount_residual" optional="hide"/>
+                <field name="second_currency_amount_currency" optional="hide"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_account_move_line_second_currency_tree" model="ir.ui.view">
+        <field name="name">view.account.move.line.second.currency.tree</field>
+        <field name="model">account.move.line</field>
+        <field name="inherit_id" ref="account.view_move_line_tree"/>
+        <field name="arch" type="xml">
+            <field name="credit" position="after">
+                <field name="second_currency_id"/>
+                <field name="second_currency_debit"/>
+                <field name="second_currency_credit"/>
+                <field name="second_currency_balance"/>
+                <field name="second_currency_amount_residual"/>
+                <field name="second_currency_amount_currency"/>
+            </field>
+        </field>
+    </record>
+</odoo>

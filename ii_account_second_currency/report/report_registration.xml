@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="action_account_report_second_currency_bs" model="ir.actions.client">
+            <field name="name">Second Currency Balance Sheet</field>
+            <field name="tag">account_report</field>
+            <field name="context" eval="{'report_id': ref('ii_account_second_currency.second_currency_balance_sheet'), 'account_second_currency_report': True}"/>
+        </record>
+
+        <record id="action_account_report_second_currency_pl" model="ir.actions.client">
+            <field name="name">Second Currency Profit and Loss</field>
+            <field name="tag">account_report</field>
+            <field name="context" eval="{'report_id': ref('ii_account_second_currency.second_currency_profit_and_loss'), 'account_second_currency_report': True}"/>
+        </record>
+
+        <record id="action_account_report_general_ledger_second_currency" model="ir.actions.client">
+            <field name="name">Second Currency General Ledger</field>
+            <field name="tag">account_report</field>
+            <field name="context" eval="{'report_id': ref('ii_account_second_currency.second_currency_general_ledger_report'), 'account_second_currency_report': True}"/>
+        </record>
+
+        <record id="action_account_report_second_currency_coa" model="ir.actions.client">
+            <field name="name">Second Currency Trial Balance</field>
+            <field name="tag">account_report</field>
+            <field name="context" eval="{'report_id': ref('ii_account_second_currency.second_currency_trial_balance_report'), 'account_second_currency_report': True}"/>
+        </record>
+    </data>
+</odoo>

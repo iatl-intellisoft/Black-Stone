@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="res_config_settings_view_form_account_second_currency" model="ir.ui.view">
+            <field name="name">res.config.settings.view.form.inherit.account.second.currency</field>
+            <field name="model">res.config.settings</field>
+            <field eval="50" name="priority"/>
+            <field name="inherit_id" ref="account.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@id='main_currency']" position="after">
+                    <div class="col-12 col-lg-6 o_setting_box" id="second_currency">
+                        <div class="o_setting_left_pane"/>
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">Secondary Currency</span>
+                            <span aria-label="Values set here are company-specific." class="fa fa-lg fa-building-o" groups="base.group_multi_company" role="img" title="Values set here are company-specific."/>
+                            <div class="text-muted">Secondary currency of your company
+                            </div>
+                            <div class="content-group">
+                                <div class="row mt16">
+                                    <label class="col-lg-3 o_light_label" for="second_currency_id"/>
+                                    <field name="second_currency_id" options="{'no_create_edit': True, 'no_open': True}"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_company_form_second_currency" model="ir.ui.view">
+            <field name="name">view.company.form.second.currency</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='currency_id']" position="after">
+                    <field name="second_currency_id" options="{'no_create': True, 'no_open': True}"/>
+                    <!-- <field name="second_currency_id"/>-->
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
