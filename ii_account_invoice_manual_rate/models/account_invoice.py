@@ -35,6 +35,7 @@ class AccountInvoice(models.Model):
         # Update custom rate value onchange of date value
         today = fields.Date.today()
         self.custom_rate = self.currency_id._get_conversion_rate(self.currency_id, self.company_id.currency_id, self.company_id, self.invoice_date or today)
+        print('amaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaal',self.custom_rate)
         self._onchange_custom_rate()
 
     @api.onchange('custom_rate', 'currency_rate')
@@ -42,6 +43,7 @@ class AccountInvoice(models.Model):
         for rec in self:
             for line in rec.line_ids:
                 line.custom_rate = rec.custom_rate
+                print('malaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaz',line.custom_rate)
                 line.with_context(custom_rate=rec.currency_rate)._recompute_debit_credit_from_amount_currency()
 
 
